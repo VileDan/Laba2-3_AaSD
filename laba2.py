@@ -3,6 +3,7 @@ buffer_len = 1
 work_buffer = ""
 digit_flag = False
 stop_flag = False
+stop2_flag = False
 try:
     with open("text.txt", 'r+') as file:     # открываем файл
         print("\nРезультат работы программы\n")
@@ -20,6 +21,8 @@ try:
                 if len(work_buffer) == 1:
                     digit_flag = False
                 if digit_flag and not re.findall(r'[02468]{2,}|[13579]{2,}', work_buffer):  # обработка числа
+                    stop2_flag = True
+                    print("\nЧисла в файле, которые состоят не менее чем из 2 цифр и строго чередующимися четными и нечетными: \n")
                     print(work_buffer)
                     digit_flag = False
                     work_buffer = ''
@@ -31,5 +34,8 @@ try:
             if not buffer:
                 buffer = "."
                 stop_flag = True
+        if not stop2_flag:
+                print("\nВ файле нет чисел, которые соответсвуют условию(")
 except FileNotFoundError:             # если файл пустой
     print("\nФайл text.txt в директории проекта не обнаружен.")
+
